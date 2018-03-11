@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Train Time</title>
+
+  <!--Import Google Icon Font-->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <div class="container">
+
+    <div class="row">
+      <div class="col-s12">
+        <div class="card-panel blue darken-3 z-depth-3">
+          <span class="white-text center-align">
+            <h2>
+              <strong>ANYTIME IS TRAIN TIME</strong>
+            </h2>
+          </span>
+          <span class="white-text center-align">
+            <h6>Choo Choo. Chee Chee.</h6>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="card">
+        <div class="card-content z-depth-3">
+          <span class="card-title activator grey-text text-darken-4 center-align">
+            <h5>Current Train Schedule</h5>
+          </span>
+          <br>
+          <table class="centered">
+            <thead>
+              <tr>
+                <th class="col-sm2">Train Name</th>
+                <th class="col-sm2">Destination</th>
+                <th class="col-sm2">Frequency (min)</th>
+                <th class="col-sm2">Next Arrival</th>
+                <th class="col-sm2">Minutes Away</th>
+              </tr>
+            </thead>
+            <tbody class="tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="card">
+        <div class="card-content z-depth-3">
+          <div class="container">
+            <span class="card-title activator grey-text text-darken-4 center-align">
+              <h5>Current Train Schedule</h5>
+            </span>
+          </div>
+          <br>
+          <table class="centered">
+            <thead>
+              <tr>
+                <div class="row">
+                  <form class="col s12">
+                    <div class="input-field">
+                      <div class="input-field col s12">
+                        <input placeholder="Train Name" type="text" class="input-field">
+                        <label id="train-input" for="text">Train Name</label>
+                      </div>
+
+                      <div class="input-field col s12">
+                        <input placeholder="Destination" type="text" class="input-field">
+                        <label id="destination-input" for="text">Destination</label>
+                      </div>
+
+                      <div class="input-field col s12">
+                        <input placeholder="First Train Time" type="text" class="input-field">
+                        <label id="first-train-input" for="time">First Train Time</label>
+                      </div>
+
+                      <div class="input-field col s12">
+                        <input placeholder="Frequency" type="text" class="input-field">
+                        <label id="frequency-input" for="number">Frequency</label>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </tr>
+            </thead>
+          </table>
+          <br>
+          <button id="submit" class="btn waves-effect waves-light blue darken-3" type="submit" name="action">Submit
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>
+
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+  <script type="text/javascript" src="logic.js"></script>
+</body>
+
+</html>
