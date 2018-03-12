@@ -47,7 +47,7 @@
                 <th class="col-sm2">Destination</th>
                 <th class="col-sm2">Frequency (min)</th>
                 <th class="col-sm2">Next Arrival</th>
-                <th class="col-sm2">Minutes Away (min)</th>
+                <th id="mins-away" class="col-sm2"><strong>Minutes Away (min)</strong></th>
               </tr>
             </thead>
             <tbody class="tbody"></tbody>
@@ -104,6 +104,9 @@
       </div>
     </div>
   </div>
+
+  <!-- Moment.js -->
+  <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
 
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/4.11.0/firebase.js"></script>

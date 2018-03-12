@@ -15,15 +15,48 @@ firebase.initializeApp(config);
    
 // Create global variables
 
+var database = firebase.database();
+
 var trainName = "";
 var destination = "";
-var startTime = "";
+var startTime = database[2];
+var startFormat = "HH:mm";
 var frequency = 0;
+var tfrequency = database[1];
 var nextArrival = "";
 var minAway = 0;
 
-var database = firebase.database();
 
+
+var currentTime = moment();
+console.log("CURRRENT TIME: " + moment(currentTime).format("HH:mm"));
+
+var startTimeConverted = moment(startTime, "HH:mm").subtract(1, "years");
+console.log(startTimeConverted);
+
+var diffTime = moment().diff(moment(startTimeConverted), "minutes");
+console.log("DIFFERENCE IN TIME: " + diffTime);
+
+var tRemainder = diffTime % tfrequency;
+console.log(tRemainder);
+
+minAway = tfrequency - tRemainder;
+console.log("MINUTES TO TRAIN: " + minAway);
+
+var nextArrival = moment().add(minAway, "minutes");
+console.log("ARRIVAL TIME: " + moment(nextArrival).format("HH:mm"));
+
+/*
+var convertedTime = moment(startTime, startFormat);
+console.log(startTime);
+
+moment().minute(Number);
+moment().minute();
+moment().minutes(Number);
+moment().minutes();
+
+minAway = 
+*/
 /*
 database.ref().on("value", function(snap) {
     if(snap.child("highBidder").exists() && snap.child("highPrice").exists()) {
@@ -60,6 +93,8 @@ $("#submit").on("click", function() {
     return false;
 });
 
+
+
 database.ref().on("child_added", function(snap) {
     console.log(snap.val());
 
@@ -67,6 +102,6 @@ database.ref().on("child_added", function(snap) {
     "<td>" + snap.val().destination + "</td>" +
     "<td>" + snap.val().frequency + " min</td>" +
     "<td>" + snap.val().nextArrival + "</td>" +
-    "<td>" + snap.val().minAway + " min</td></tr>"
+    "<td>" + snap.val().minAway + "</td></tr>"
     );
 });
