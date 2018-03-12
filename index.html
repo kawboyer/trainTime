@@ -40,14 +40,14 @@
             <h5>Current Train Schedule</h5>
           </span>
           <br>
-          <table class="centered">
+          <table id="added-train" class="centered">
             <thead>
               <tr>
                 <th class="col-sm2">Train Name</th>
                 <th class="col-sm2">Destination</th>
                 <th class="col-sm2">Frequency (min)</th>
                 <th class="col-sm2">Next Arrival</th>
-                <th class="col-sm2">Minutes Away</th>
+                <th class="col-sm2">Minutes Away (min)</th>
               </tr>
             </thead>
             <tbody class="tbody"></tbody>
@@ -57,11 +57,11 @@
     </div>
 
     <div class="row">
-      <div class="card">
+      <div id="form-submit"class="card">
         <div class="card-content z-depth-3">
           <div class="container">
             <span class="card-title activator grey-text text-darken-4 center-align">
-              <h5>Current Train Schedule</h5>
+              <h5>Add Train</h5>
             </span>
           </div>
           <br>
@@ -72,23 +72,23 @@
                   <form class="col s12">
                     <div class="input-field">
                       <div class="input-field col s12">
-                        <input placeholder="Train Name" type="text" class="input-field">
-                        <label id="train-input" for="text">Train Name</label>
+                        <input id="train-input" placeholder="Train Name" type="text" class="input-field">
+                        <label for="text">Train Name</label>
                       </div>
 
                       <div class="input-field col s12">
-                        <input placeholder="Destination" type="text" class="input-field">
-                        <label id="destination-input" for="text">Destination</label>
+                        <input id="destination-input" placeholder="Destination" type="text" class="input-field label">
+                        <label for="text">Destination</label>
                       </div>
 
                       <div class="input-field col s12">
-                        <input placeholder="First Train Time" type="text" class="input-field">
-                        <label id="first-train-input" for="time">First Train Time</label>
+                        <input id="first-train-input" placeholder="First Train Time" type="text" class="input-field">
+                        <label for="time">First Train Time (HH:mm - military time)</label>
                       </div>
 
                       <div class="input-field col s12">
-                        <input placeholder="Frequency" type="text" class="input-field">
-                        <label id="frequency-input" for="number">Frequency</label>
+                        <input id="frequency-input" placeholder="Frequency" type="text" class="input-field">
+                        <label for="number">Frequency (min)</label>
                       </div>
                     </div>
                   </form>
