@@ -1,5 +1,5 @@
 // Initialize Firebase
-// Connect to API and push () input to the database
+// Connect to API
 var config = {
     apiKey: "AIzaSyBaFBYQUaaDEuA6O-WZTq8wYyPL12j7V9I",
     authDomain: "traintime-49b0a.firebaseapp.com",
@@ -12,55 +12,24 @@ var config = {
 firebase.initializeApp(config);
    
 // Create global variables
-
 var database = firebase.database();
 
+// Variables from user input
 var trainName = "";
 var destination = "";
 var startTime = "HH:mm";
-// var startFormat = "HH:mm";
 var frequency = 0;
-// var tfrequency = database[1];
+
+// Variables to be modified with Moment.js
 var nextArrival = "";
 var minAway = 0;
-
-
-var currentTime = moment();
-console.log("CURRRENT TIME: " + moment(currentTime).format("HH:mm"));
-
-
-var startTimeConverted = moment(startTime, "HH:mm").subtract(1, "years");
-console.log(startTimeConverted);
-
-
-var diffTime = moment().diff(moment(startTimeConverted), "minutes");
-console.log("DIFFERENCE IN TIME: " + diffTime);
-
-/*
-var remainder = diffTime % frequency;
-console.log(tRemainder);
-
-minAway = frequency - tRemainder;
-console.log("MINUTES TO TRAIN: " + minAway);
-
-var nextArrival = moment().add(minAway, "minutes");
-console.log("ARRIVAL TIME: " + moment(nextArrival).format("HH:mm"));
-
-var diffTime = moment().diff(moment.unix(startTime), "minutes");
-
-var nextTrain = frequency - (difference % frequency);
-
-var nextArrival = moment().add(nextTrain, "minutes").format("HH:mm");
-*/
-
 
 // When "submit" button is clicked, the input values are grabbed
 $("#submit").on("click", function() {
     event.preventDefault();
     trainName = $("#train-input").val().trim();
     destination = $("#destination-input").val().trim();
-    startTime = moment($("#first-train-input").val().trim(), "HH:mm".subtract(1, "years")).format("X");
-    console.log(startTime);
+    startTime = moment($("#first-train-input").val().trim(), "HH:mm").subtract(1, "years").format("X");
     frequency = $("#frequency-input").val().trim();
 
     console.log(trainName);
@@ -68,6 +37,7 @@ $("#submit").on("click", function() {
     console.log(startTime);
     console.log(frequency);
 
+    // And pushed into the database
     database.ref().push({
         trainName:trainName,
         destination:destination,
@@ -75,10 +45,35 @@ $("#submit").on("click", function() {
         frequency:frequency
     });
 
-    // $('form-submit')[0].reset();
+   // PSEUDO: CODE NEEDED TO CLEAR THE FORM INPUT FIELDS WHEN THE SUBMIT BUTTON IS CLICKED.
+   /*
+   function clearFormInputField() {
+        document.getElementsById("submit").reset();
+    };
+    */
 
     return false;
 });
+
+
+// PSEUDO: CODE NEEDED TO MODIFY THE VARIABLES nextArrival AND minAway.
+var currentTime = moment();
+console.log("CURRRENT TIME: " + moment(currentTime).format("HH:mm"));
+
+// Convert Unix timestamp to HH:mmI have the unix time stamp
+var startTimeConverted = moment.unix(startTime);
+console.log("Start Time Converted: " + startTimeConverted);
+
+/*
+var startTimeConverted = moment(startTime.split(":"));
+console.log("Start time converted " + startTimeConverted);
+
+var minAway = moment().diff(moment(startTimeConverted), "minutes");
+console.log("DIFFERENCE IN TIME: " + minAway);
+
+var nextArrival = currentTime + minAway;
+console.log(nextArrival);
+*/
 
 database.ref().on("child_added", function(snap) {
     console.log(snap.val());
