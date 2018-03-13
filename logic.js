@@ -1,5 +1,3 @@
-
-
 // Initialize Firebase
 // Connect to API and push () input to the database
 var config = {
@@ -19,61 +17,50 @@ var database = firebase.database();
 
 var trainName = "";
 var destination = "";
-var startTime = database[2];
-var startFormat = "HH:mm";
+var startTime = "HH:mm";
+// var startFormat = "HH:mm";
 var frequency = 0;
-var tfrequency = database[1];
+// var tfrequency = database[1];
 var nextArrival = "";
 var minAway = 0;
-
 
 
 var currentTime = moment();
 console.log("CURRRENT TIME: " + moment(currentTime).format("HH:mm"));
 
+
 var startTimeConverted = moment(startTime, "HH:mm").subtract(1, "years");
 console.log(startTimeConverted);
+
 
 var diffTime = moment().diff(moment(startTimeConverted), "minutes");
 console.log("DIFFERENCE IN TIME: " + diffTime);
 
-var tRemainder = diffTime % tfrequency;
+/*
+var remainder = diffTime % frequency;
 console.log(tRemainder);
 
-minAway = tfrequency - tRemainder;
+minAway = frequency - tRemainder;
 console.log("MINUTES TO TRAIN: " + minAway);
 
 var nextArrival = moment().add(minAway, "minutes");
 console.log("ARRIVAL TIME: " + moment(nextArrival).format("HH:mm"));
 
-/*
-var convertedTime = moment(startTime, startFormat);
-console.log(startTime);
+var diffTime = moment().diff(moment.unix(startTime), "minutes");
 
-moment().minute(Number);
-moment().minute();
-moment().minutes(Number);
-moment().minutes();
+var nextTrain = frequency - (difference % frequency);
 
-minAway = 
+var nextArrival = moment().add(nextTrain, "minutes").format("HH:mm");
 */
-/*
-database.ref().on("value", function(snap) {
-    if(snap.child("highBidder").exists() && snap.child("highPrice").exists()) {
-        highBidder = snap.val().highBidder;
-        highPrice = snap.val().highPrice;
-        $("highestBidder").html(highBidder);
-        $("highestPrice").html("$"+highPrice);
-    };
-});
-*/
+
 
 // When "submit" button is clicked, the input values are grabbed
 $("#submit").on("click", function() {
     event.preventDefault();
     trainName = $("#train-input").val().trim();
     destination = $("#destination-input").val().trim();
-    startTime = $("#first-train-input").val().trim();
+    startTime = moment($("#first-train-input").val().trim(), "HH:mm".subtract(1, "years")).format("X");
+    console.log(startTime);
     frequency = $("#frequency-input").val().trim();
 
     console.log(trainName);
@@ -88,12 +75,10 @@ $("#submit").on("click", function() {
         frequency:frequency
     });
 
-    $('form-submit')[0].reset();
+    // $('form-submit')[0].reset();
 
     return false;
 });
-
-
 
 database.ref().on("child_added", function(snap) {
     console.log(snap.val());
