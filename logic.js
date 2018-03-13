@@ -16,9 +16,6 @@ var database = firebase.database();
 
 // Variables from user input
 var trainName = "";
-var destination = "";
-var startTime = "HH:mm";
-var frequency = 0;
 
 // Variables to be modified with Moment.js
 var nextArrival = "";
@@ -28,9 +25,9 @@ var minAway = 0;
 $("#submit").on("click", function() {
     event.preventDefault();
     trainName = $("#train-input").val().trim();
-    destination = $("#destination-input").val().trim();
-    startTime = moment($("#first-train-input").val().trim(), "HH:mm").subtract(1, "years").format("X");
-    frequency = $("#frequency-input").val().trim();
+    var destination = $("#destination-input").val().trim();
+    var startTime = moment($("#first-train-input").val().trim(), "HH:mm").subtract(1, "years").format("X");
+    var frequency = parseInt($("#frequency-input").val());
 
     console.log(trainName);
     console.log(destination);
@@ -55,15 +52,6 @@ $("#submit").on("click", function() {
     return false;
 });
 
-
-// PSEUDO: CODE NEEDED TO MODIFY THE VARIABLES nextArrival AND minAway.
-var currentTime = moment();
-console.log("CURRRENT TIME: " + moment(currentTime).format("HH:mm"));
-
-// Convert Unix timestamp to HH:mmI have the unix time stamp
-var startTimeConverted = moment.unix(startTime);
-console.log("Start Time Converted: " + startTimeConverted);
-
 /*
 var startTimeConverted = moment(startTime.split(":"));
 console.log("Start time converted " + startTimeConverted);
@@ -77,6 +65,14 @@ console.log(nextArrival);
 
 database.ref().on("child_added", function(snap) {
     console.log(snap.val());
+
+    // PSEUDO: CODE NEEDED TO MODIFY THE VARIABLES nextArrival AND minAway.
+    var currentTime = moment();
+    console.log("CURRRENT TIME: " + currentTime.format("HH:mm"));
+
+    // Convert Unix timestamp to HH:mm
+    var startTimeConverted = moment(snap.val().startTime, "HH:mm").subtract(1, "year");
+    console.log("Start Time Converted: " + startTimeConverted);
 
     $(".tbody").append("<tr><td>" + snap.val().trainName + "</td>" +
     "<td>" + snap.val().destination + "</td>" +
