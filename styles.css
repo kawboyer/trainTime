@@ -1,52 +1,7 @@
-/*
-.row-full{
-    width: 100vw;
-    position: relative;
-    margin-left: -50vw;
-    height: 100px;
-    margin-top: 100px;
-    left: 50%;
-   }
-*/
-
-/* 
-.input-field {
-border-bottom: 0.5px solid #1565c0;
-/* box-shadow: 0 1px 0 0 #1565c0;
-};
-*/
-
-/*
-.input-field label {
-color: #1565c0;
-}
-*/
-
-/* label focus color
-.input-field,
-#focus [type=text]:focus + {
-color: #1565c0;
-}
-*/
-
-/*
-.input-field label {
-color: #1565c0;
-}
-*/
-
-/* label focus color
-.input-field input[type=text]:focus + label {
-color: #1565c0;
-}
-*/
-
 #mins-away {
   color: #1565c0;
 }
 
-/*
-#important {
+#minAwayBlue {
   color: #1565c0;
 }
-*/

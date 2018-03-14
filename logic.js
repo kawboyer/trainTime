@@ -66,18 +66,35 @@ console.log(nextArrival);
 database.ref().on("child_added", function(snap) {
     console.log(snap.val());
 
-    // PSEUDO: CODE NEEDED TO MODIFY THE VARIABLES nextArrival AND minAway.
-    var currentTime = moment();
-    console.log("CURRRENT TIME: " + currentTime.format("HH:mm"));
+    // Current time in Unix timestamp (milliseconds)
+    var currentTime = (moment().unix()) * 1000;
+    console.log("CURRRENT TIME: " + currentTime);
 
-    // Convert Unix timestamp to HH:mm
-    var startTimeConverted = moment(snap.val().startTime, "HH:mm").subtract(1, "year");
-    console.log("Start Time Converted: " + startTimeConverted);
+    var currentTimeConverted = moment(currentTime).format("HH:mm");
+    console.log("Current time converted: " + currentTimeConverted);
+
+    // Start time i Unix timestamp (milliseconds) a year ago
+    var startTime = ((snap.val().startTime) * 1000);
+    console.log("START TIME (A YEAR AGO): " + startTime);
+
+    var startTimeConverted = moment(startTime).format("HH:mm");
+    console.log("Start time (a year ago) converted: " + startTimeConverted);
+
+    // The amount of time (in minutes) until the next train arrives
+    var minAway = (moment.unix(currentTime - snap.val().startTime).format("mm")) % snap.val().frequency;
+    console.log("MINS AWAY: " + minAway);
+
+    // The time that the next train arrives in Unix timestamp
+    var nextArrivalTimestamp = moment().add(minAway, "minutes");
+
+    // The next arrival time in military time
+    var nextArrival = moment(nextArrivalTimestamp).format("HH:mm");
+    console.log("NEXT ARRIVAL: " + nextArrival)
 
     $(".tbody").append("<tr><td>" + snap.val().trainName + "</td>" +
     "<td>" + snap.val().destination + "</td>" +
     "<td>" + snap.val().frequency + " min</td>" +
-    "<td>" + snap.val().nextArrival + "</td>" +
-    "<td>" + snap.val().minAway + "</td></tr>"
+    "<td>" + nextArrival + "</td>" +
+    "<td id=minAwayBlue>" + minAway + "</td></tr>"
     );
 });
