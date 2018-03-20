@@ -1,5 +1,5 @@
-// Initialize Firebase
 // Connect to API
+// Initialize Firebase
 var config = {
     apiKey: "AIzaSyBaFBYQUaaDEuA6O-WZTq8wYyPL12j7V9I",
     authDomain: "traintime-49b0a.firebaseapp.com",
@@ -8,9 +8,8 @@ var config = {
     storageBucket: "traintime-49b0a.appspot.com",
     messagingSenderId: "909287852454"
 };
-
 firebase.initializeApp(config);
-   
+
 // Create global variables
 var database = firebase.database();
 
@@ -22,7 +21,7 @@ var nextArrival = "";
 var minAway = 0;
 
 // When "submit" button is clicked, the input values are grabbed
-$("#submit").on("click", function() {
+$("#submit").on("click", function () {
     event.preventDefault();
     trainName = $("#train-input").val().trim();
     var destination = $("#destination-input").val().trim();
@@ -36,34 +35,19 @@ $("#submit").on("click", function() {
 
     // And pushed into the database
     database.ref().push({
-        trainName:trainName,
-        destination:destination,
-        startTime:startTime,
-        frequency:frequency
+        trainName: trainName,
+        destination: destination,
+        startTime: startTime,
+        frequency: frequency
     });
 
-   // PSEUDO: CODE NEEDED TO CLEAR THE FORM INPUT FIELDS WHEN THE SUBMIT BUTTON IS CLICKED.
-   /*
-   function clearFormInputField() {
-        document.getElementsById("submit").reset();
-    };
-    */
+    // Clear the form input fields when the submit button is clicked.
+    $("#user-input").val("");
 
     return false;
 });
 
-/*
-var startTimeConverted = moment(startTime.split(":"));
-console.log("Start time converted " + startTimeConverted);
-
-var minAway = moment().diff(moment(startTimeConverted), "minutes");
-console.log("DIFFERENCE IN TIME: " + minAway);
-
-var nextArrival = currentTime + minAway;
-console.log(nextArrival);
-*/
-
-database.ref().on("child_added", function(snap) {
+database.ref().on("child_added", function (snap) {
     console.log(snap.val());
 
     // Current time in Unix timestamp (milliseconds)
@@ -92,9 +76,9 @@ database.ref().on("child_added", function(snap) {
     console.log("NEXT ARRIVAL: " + nextArrival)
 
     $(".tbody").append("<tr><td>" + snap.val().trainName + "</td>" +
-    "<td>" + snap.val().destination + "</td>" +
-    "<td>" + snap.val().frequency + " min</td>" +
-    "<td>" + nextArrival + "</td>" +
-    "<td id=minAwayBlue>" + minAway + "</td></tr>"
+        "<td>" + snap.val().destination + "</td>" +
+        "<td>" + snap.val().frequency + " min</td>" +
+        "<td>" + nextArrival + "</td>" +
+        "<td id=minAwayBlue>" + minAway + "</td></tr>"
     );
 });
